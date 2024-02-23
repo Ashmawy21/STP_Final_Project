@@ -1,2 +1,2 @@
-## STP projecy
-front-end and back-end team
+## STP project
+front-end and back-end teams
