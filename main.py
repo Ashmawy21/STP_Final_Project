@@ -1,4 +1,6 @@
 from flask import Flask, render_template,request,session,redirect,url_for
+from register import register_class
+import json
 
 
 app=Flask(__name__)
@@ -21,11 +23,15 @@ def sign_in ():
         session['pass'] = request.form['password']
         return redirect(url_for('index'))
     else:
-        return  render_template('sign-in.html')
+        username = request.args.get('username')
+        password = request.args.get('password')
+        return register_class.login(username,password)
 
 @app.route('/sign up')
 def sign_up():
-    return render_template('sign-up.html')
+    username = request.args.get('username')
+    password = request.args.get('password')
+    return register_class.signup(username,password)
 
 
 @app.route('/')
