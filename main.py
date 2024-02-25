@@ -17,16 +17,12 @@ def journy_pricing():
 def sign_in ():
     if 'uname' in session:
         return redirect(url_for('index'))
-    elif request.method =="POST":
-        session.permanent=True
-        session['uname'] = request.form['username']
-        session['pass'] = request.form['password']
-        return redirect(url_for('index'))
+    
     else:
-        username = request.args.get('username')
-        password = request.args.get('password')
+        username = request.form.get('username')
+        password = request.form.get('password')
         return register_class.login(username,password)
-
+    
 @app.route('/sign up')
 def sign_up():
     username = request.args.get('username')
@@ -38,6 +34,7 @@ def sign_up():
 def index():
     if "uname" in session:
         return render_template('home_page.html')
+    
     else:
         return render_template('sign-in.html')
 

@@ -1,4 +1,4 @@
-from flask import Flask , render_template,request
+from flask import Flask, render_template,request,session,redirect,url_for
 import json
 
 
@@ -6,22 +6,24 @@ class register_class :
 
     @staticmethod
     def login(username,password):
+        
         data_string = open('accounts.json').read()
         data_converted=json.loads(data_string)
         
-        print(f"Username: {username}")
-        print(f"Password: {password}")
-        print(f"Data Converted: {data_converted}")
-        if username and password != "":
-            if username in data_converted:
-                if data_converted[username] == password:
-                    return "<h1>you are logged in</h1>"
-                else:
-                    return "<h1>Wrong password :(</h1>"
-            else:
-                return "<h1>You don't have an account.</h1>"
-        return render_template('sign-in.html')
+        # if username and password != "":
         
+        if username in data_converted :
+                    if data_converted[username] == password:
+                            session.permanent=True
+                            session['uname'] = request.form['username']
+                            session['pass'] = request.form['password']
+                            return "success", "<h1>You are logged in</h1>"
+                    else:
+                            return "wrong_password"
+        else:
+                    return "username doesnt exist, make an account"
+        # else:   
+        #     return render_template('sign-in.html')
         
     @staticmethod
     def signup(username,password):
