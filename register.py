@@ -6,6 +6,11 @@ class register_class :
 
     @staticmethod
     def login(username,password):
+        try:
+            with open('accounts.json', 'r') as f:
+                data_converted = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            return 'make account first'
         
         data_string = open('accounts.json').read()
         data_converted=json.loads(data_string)
