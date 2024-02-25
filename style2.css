@@ -1,0 +1,63 @@
+.Social {
+    position: absolute;
+    top:  50%;
+    left: 50% ;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.Social li {
+    list-style: none;
+    margin: 0 40px;
+}
+
+.Social li a  {
+    font-size: 40px;
+    color: #262626;
+    transition: 0.5s;
+    line-height: 80px;
+    position: relative;
+    display: block;
+    width: 80px;
+    height: 80px;
+    background-color: wheat;
+    text-align: center;
+    transform: perspective(1000px) rotate(-30deg) skew(25deg) ;
+    transition: .5s;
+    box-shadow: -20px 20px 10px rgba(0, 0, 0,0.5);
+}
+
+.Social li a:before
+{
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: -20px;
+    width: 20px;
+    height: 100%;
+    background-color: #b1b1b1;
+    transform: perspective(1000px) rotate(0deg) skewY(-40deg) ;
+    transition:.5s;
+}
+
+.Social li a::after
+{
+    content: "";
+    position: absolute;
+    bottom: -20px;
+    left: -10px;
+    width: 100%;
+    height: 20px;
+    background-color: #b1b1b1;
+    transform: perspective(1000px) rotate(0deg) skewx(-40deg) ;
+    transition:.5s;
+}
+
+.Social li a:hover{
+
+    transform: perspective(1000px) rotate(-30deg) skew(25deg) translate(20px,-20px);
+    box-shadow: -50px 50px 10px rgba(0, 0, 0,0.5);
+
+}
