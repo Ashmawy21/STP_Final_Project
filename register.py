@@ -1,5 +1,6 @@
 from flask import Flask, render_template,request,session,redirect,url_for
 import json
+import hashlib
 
 
 class register_class :
@@ -18,15 +19,15 @@ class register_class :
         # if username and password != "":
         
         if username in data_converted :
-                    if data_converted[username] == password:
-                            session.permanent=True
-                            session['uname'] = request.form['username']
-                            session['pass'] = request.form['password']
-                            return "success", "<h1>You are logged in</h1>"
-                    else:
-                            return "wrong_password"
+            if data_converted[username] == password:
+                    session.permanent=True
+                    session['uname'] = request.form['username']
+                    session['pass'] = request.form['password']
+                    return "success", "<h1>You are logged in</h1>"
+            else:
+                    return "wrong_password"
         else:
-                    return "username doesnt exist, make an account"
+            return "username doesnt exist, make an account"
         # else:   
         #     return render_template('sign-in.html')
         
@@ -42,7 +43,7 @@ class register_class :
             return "<h1>username already taken :O</h1>"
         
         elif username and password != "":
-            data_converted[username]=password
+            data_converted[username]=hashlib.sha256(password.encode()).hexdigest()
             with open('accounts.json', 'w') as f:       
                 json.dump(data_converted, f, indent = 2)
             return "<h1>you have an accont now, cool! ;)</h1>"

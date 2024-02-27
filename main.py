@@ -1,6 +1,7 @@
 from flask import Flask, render_template,request,session,redirect,url_for
 from register import register_class
 import json
+import hashlib
 
 
 app=Flask(__name__)
@@ -21,8 +22,11 @@ def sign_in ():
     else:
         username = request.form.get('username')
         password = request.form.get('password')
-        return register_class.login(username,password)
-    
+        if password!=None:
+            hashed_pass=hashlib.sha256(password.encode()).hexdigest()
+            return register_class.login(username,hashed_pass)
+        else:
+            return render_template('sign-in.html')
 @app.route('/sign up')
 def sign_up():
     username = request.args.get('username')
