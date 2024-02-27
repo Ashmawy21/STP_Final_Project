@@ -15,11 +15,16 @@ class register_class :
         
         data_string = open('accounts.json').read()
         data_converted=json.loads(data_string)
+
+        if password != None:
+            hashed_pass=hashlib.sha256(password.encode()).hexdigest()
+        else:
+            return render_template('sign-in.html')
         
         # if username and password != "":
         
         if username in data_converted :
-            if data_converted[username] == password:
+            if data_converted[username] == hashed_pass:
                     session.permanent=True
                     session['uname'] = request.form['username']
                     session['pass'] = request.form['password']

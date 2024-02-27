@@ -22,11 +22,8 @@ def sign_in ():
     else:
         username = request.form.get('username')
         password = request.form.get('password')
-        if password!=None:
-            hashed_pass=hashlib.sha256(password.encode()).hexdigest()
-            return register_class.login(username,hashed_pass)
-        else:
-            return render_template('sign-in.html')
+        return register_class.login(username,password)
+        
 @app.route('/sign up')
 def sign_up():
     username = request.args.get('username')
