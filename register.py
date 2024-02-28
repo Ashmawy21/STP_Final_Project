@@ -35,7 +35,7 @@ class register_class :
 
         
     @staticmethod
-    def signup(username,email,password):
+    def signup(username,email,password,confirmPassword):
         try:
             with open('accounts.json', 'r') as f:             #checking if the accounts file exists
                  data_converted = json.load(f)
@@ -44,7 +44,8 @@ class register_class :
 
         if username in data_converted :   #checking that the user has a unique username
             return "<h1>username already taken :O</h1>"
-        
+        elif password != confirmPassword:
+            return 'Invalid password confirmation. Please try again !'
         elif email in data_converted :   #checking that the username has a unique email
             return "<h1>email already taken :O</h1>"
         

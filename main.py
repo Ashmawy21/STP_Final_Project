@@ -30,7 +30,8 @@ def sign_up():
     username = request.args.get('username')
     email = request.args.get('email')
     password = request.args.get('password')
-    return register_class.signup(username,email,password)
+    confirmPassword = request.args.get('confirmPassword')  
+    return register_class.signup(username,email,password,confirmPassword)
 
 
 @app.route('/')
