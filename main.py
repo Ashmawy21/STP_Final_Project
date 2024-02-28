@@ -42,6 +42,24 @@ def index():
         return render_template('sign-in.html')
 
 
+@app.route('/forget-pass', methods=["GET","POST"])
+def forget():
+    username = request.args.get('username')
+    email = request.args.get('email')
+    new_password = request.args.get('password')
+    return register_class.forget(username,email,new_password)
+
+
+
+
+    
+@app.route('/logout')
+def logout():
+    session.pop('uname')
+    session.pop('pass')
+    return render_template('sign-in.html')
+
+
 
 if __name__=='__main__':
     app.run(debug=True)

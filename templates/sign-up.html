@@ -27,16 +27,16 @@
             <h2>Sign Up</h2>
 
             <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required><br>
+            <input type="text" id="username" name="username" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" required><br>
 
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br>
+            <input type="email" id="email" name="email" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" required><br>
 
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required><br>
+            <input type="password" id="password" name="password" action="/action_page.php" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" required><br>
 
             <label for="confirmPassword">Confirm Password:</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" required><br>
+            <input type="password" id="confirmPassword" name="confirmPassword" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" required><br>
 
             <input type="submit" value="Sign Up">
         </form>

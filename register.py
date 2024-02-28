@@ -56,3 +56,41 @@ class register_class :
             return "<h1>you have an account now, cool! ;)</h1>"
         return render_template('sign-up.html')
            
+
+    @staticmethod
+    def forget(username,email,new_password):
+        try:
+            with open('accounts.json', 'r') as f:   
+                data_converted = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            data_converted = {}
+        
+        data_string = open('accounts.json').read()   
+        data_converted=json.loads(data_string)   #getting data from the json file as read only
+
+    
+
+        if username in data_converted or email in data_converted:
+            if new_password != None:
+                hashed_pass=hashlib.sha256(new_password.encode()).hexdigest()   #hashing the data for user's privacy
+        else:
+            return render_template('forget-pass.html')   
+        
+        with open('accounts.json', 'r') as f:
+            file = json.load(f)
+        try:
+            for i in file:
+                if username or email in i:
+                    data_converted[username] = hashlib.sha256(new_password.encode()).hexdigest()
+                    data_converted[email] = hashlib.sha256(new_password.encode()).hexdigest()
+
+                    with open('accounts.json', 'w') as f:       
+                        json.dump(data_converted, f, indent = 2) 
+
+        except StopIteration:
+            return 'you have changed your password'
+        
+        return render_template('forget-pass.html')
+
+                
+
