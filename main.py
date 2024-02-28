@@ -21,14 +21,16 @@ def sign_in ():
     
     else:
         username = request.form.get('username')
+        email = request.args.get('email')
         password = request.form.get('password')
-        return register_class.login(username,password)
+        return register_class.login(username,email,password)
         
 @app.route('/sign up')
 def sign_up():
     username = request.args.get('username')
+    email = request.args.get('email')
     password = request.args.get('password')
-    return register_class.signup(username,password)
+    return register_class.signup(username,email,password)
 
 
 @app.route('/')
@@ -43,3 +45,4 @@ def index():
 
 if __name__=='__main__':
     app.run(debug=True)
+    
