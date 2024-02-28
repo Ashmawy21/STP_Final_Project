@@ -16,41 +16,39 @@ class register_class :
         data_string = open('accounts.json').read()   
         data_converted=json.loads(data_string)   #getting data from the json file as read only
 
-        if password != None:
+        if password != None:   #preventing the website from sending empty password once opened 
             hashed_pass=hashlib.sha256(password.encode()).hexdigest()   #hashing the data for user's privacy
         else:
-            return render_template('sign-in.html')   #if password not given, user won't be able to sign in
+            return render_template('sign-in.html')   #if the website sent empty password reopen the sign-in page
         
-        # if username and password != "":
         
         if username in data_converted or email in data_converted :   #login using emal or username that must be already existing in the json file
             if data_converted[username or email] == hashed_pass:     #checking that the password given by user is for the correct email/username
-                    session.permanent=True
-                    session['uname'] = request.form['username']
-                    session['pass'] = request.form['password']
-                    return "success", "<h1>You are logged in</h1>"    
+                    session.permanent=True                           #making permanent session
+                    session['uname'] = request.form['username']      #storing the username in the session  
+                    session['pass'] = request.form['password']       #storing the password in the session 
+                    return "success", "<h1>You are logged in</h1>"   #the user now will remain logged in as long as the session remains
             else:
                     return "wrong_password"
         else:
             return "username doesnt exist, make an account"
-        # else:   
-        #     return render_template('sign-in.html')
+
         
     @staticmethod
     def signup(username,email,password):
         try:
-            with open('accounts.json', 'r') as f:   #checking if data already exists in the json file to avoid saving the same data more than once 
-                data_converted = json.load(f)
-        except (FileNotFoundError, json.JSONDecodeError):
-            data_converted = {}
+            with open('accounts.json', 'r') as f:             #checking if the accounts file exists
+                 data_converted = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):     
+            data_converted = {}                               #if the file doesnt exist then make a dict. , it will be converted into json later on
 
-        if username in data_converted :   #checking that the username has a unique username
+        if username in data_converted :   #checking that the user has a unique username
             return "<h1>username already taken :O</h1>"
         
         elif email in data_converted :   #checking that the username has a unique email
             return "<h1>email already taken :O</h1>"
         
-        elif username and password != "":    
+        elif username and password != "":    #preventing the website from sending empty things once opened 
             data_converted[username]=hashlib.sha256(password.encode()).hexdigest()   #assigning each email/username to its hashed password 
             data_converted[email]=hashlib.sha256(password.encode()).hexdigest()
             with open('accounts.json', 'w') as f:       
