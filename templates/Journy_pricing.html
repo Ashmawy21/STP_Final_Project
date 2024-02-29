@@ -6,8 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Journey Pricing</title>
     <link rel="stylesheet" href="journy.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <style>
+    <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" /> -->
+    
+<script src='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css' rel='stylesheet' />
+
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.2.0/mapbox-gl-directions.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.2.0/mapbox-gl-directions.css" type="text/css">
+
+
+<style>
         #map {
             height: 400px;
             width: 40%;
@@ -31,14 +39,17 @@
     <br>
     <center>
         <h2>Journey Pricing</h2>
-
+            <div id='map' ></div>
+            <br>
+            <br>
+            <br>
         <label for="pickupPoint">Pickup Point:</label>
         <input type="text" id="pickupPoint" name="pickupPoint" required><br>
 
         <label for="landingPoint">Landing Point:</label>
         <input type="text" id="landingPoint" name="landingPoint" required><br>
 
-        <button onclick="calculatePrice()">Calculate Price</button>
+        <button id="pricebutton" onclick="calculatePrice()">Calculate Price</button>
 
         <!-- <h3>Price: <span id="priceDisplay"></span></h3>
         <button onclick="calculatePrice()">Find a driver</button> -->
@@ -46,24 +57,7 @@
     </center>
 
 
-
-        <center>
-
-    <div id="map"></div>
-
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script>
-        
-        var map = L.map('map').setView([51.505, -0.09], 13);
-
-       
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-    </script>
-    </center>
-
-
+<script src="mapBox.js"></script>
 </body>
 
 </html>
