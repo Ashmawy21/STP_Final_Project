@@ -6,7 +6,7 @@ import hashlib
 class register_class :
 
     @staticmethod
-    def login(username,email,password):
+    def login(username,password):
         try:
             with open('accounts.json', 'r') as f:   #read the json file to check for existing accounts
                 data_converted = json.load(f)
@@ -22,12 +22,12 @@ class register_class :
             return render_template('sign-in.html')   #if the website sent empty password reopen the sign-in page
         
         
-        if username in data_converted or email in data_converted :   #login using emal or username that must be already existing in the json file
-            if data_converted[username or email] == hashed_pass:     #checking that the password given by user is for the correct email/username
+        if username in data_converted :   #login using emal or username that must be already existing in the json file
+            if data_converted[username] == hashed_pass:     #checking that the password given by user is for the correct email/username
                     session.permanent=True                           #making permanent session
                     session['uname'] = request.form['username']      #storing the username in the session  
                     session['pass'] = request.form['password']       #storing the password in the session 
-                    return "success", "<h1>You are logged in</h1>"   #the user now will remain logged in as long as the session remains
+                    return render_template('home_page.html')   #the user now will remain logged in as long as the session remains
             else:
                     return "wrong_password"
         else:
@@ -50,10 +50,13 @@ class register_class :
             return "<h1>email already taken :O</h1>"
         
         elif username and password != "":    #preventing the website from sending empty things once opened 
+           
             data_converted[username]=hashlib.sha256(password.encode()).hexdigest()   #assigning each email/username to its hashed password 
             data_converted[email]=hashlib.sha256(password.encode()).hexdigest()
+            
             with open('accounts.json', 'w') as f:       
                 json.dump(data_converted, f, indent = 2)   #saving the user's data in the json file
+
             return "<h1>you have an account now, cool! ;)</h1>"
         return render_template('sign-up.html')
            
