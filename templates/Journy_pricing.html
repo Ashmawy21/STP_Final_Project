@@ -5,20 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Journey Pricing</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="journy.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 400px;
+            width: 40%;
+        }
+    </style>
 
 </head>
 
 <body>
-    <div class="nav">      
+    <div class="nav">
         <img src="logo.png" alt="Company Logo">
+    
         <nav>
-            <button>Home</button>
-            <button>Sign In</button>
-            <button>Sign Up</button>
-            <button>Journey Price</button>
+            <button type="button"><span></span> <a href="home_page.html">Home</a> </button>
+            <button type="button"><span></span> <a href="profile.html">Profile</a> </button>
+            <button type="button"><span></span> <a href="sign-in.html">Sign In</a></button>
+            <button type="button"><span></span> <a href="sign-up.html">Sign Up</a></button>
+            <button type="button"><span></span> <a href="Journy_pricing.html">Journey Price</a></button>
         </nav>
-        </div>
+    </div>
     <br>
     <center>
         <h2>Journey Pricing</h2>
@@ -31,8 +40,29 @@
 
         <button onclick="calculatePrice()">Calculate Price</button>
 
-        <h3>Price: <span id="priceDisplay"></span></h3>
+        <!-- <h3>Price: <span id="priceDisplay"></span></h3>
+        <button onclick="calculatePrice()">Find a driver</button> -->
+
     </center>
+
+
+
+        <center>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        
+        var map = L.map('map').setView([51.505, -0.09], 13);
+
+       
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+    </script>
+    </center>
+
 
 </body>
 

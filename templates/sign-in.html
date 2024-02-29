@@ -5,22 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In Page</title>    
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="sign in.css">
 
 </head>
 
 <body>
-<div class="nav">        <img src="logo.png" alt="Company Logo">
-    <nav>
-        <button>Home</button>
-        <button>Sign In</button>
-        <button>Sign Up</button>
-        <button>Journey Price</button>
-    </nav>
+    <div class="nav">
+        <img src="Spin T final logo.png" alt="Company Logo" >
+    
+        <nav>
+            <button type="button"><span></span> <a href="home_page.html">Home</a> </button>
+            <button type="button"><span></span> <a href="profile.html">Profile</a> </button>
+            <button type="button"><span></span> <a href="sign-in.html">Sign In</a></button>
+            <button type="button"><span></span> <a href="sign-up.html">Sign Up</a></button>
+            <button type="button"><span></span> <a href="Journy_pricing.html">Journey Price</a></button>
+        </nav>
     </div>
 <br>
     <center>
-        <form action="{{ url_for('sign_in') }}" method="post">
+        <form>
             <h2>Sign In</h2>
 
             <label for="username">Username:</label>
@@ -31,6 +34,9 @@
 
             <input type="submit" value="Sign In">
         </form>
+        <div class="roads">
+            <img src="good.png" alt="roads" >
+        </div>
     </center>
 </body>
 

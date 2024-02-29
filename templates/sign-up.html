@@ -1,46 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up Page</title>   
-    <link rel="stylesheet" href="style.css">
-
+    <title>Sign up</title>
+    <link rel="stylesheet" href="sign in.css">
 </head>
-
 <body>
-    <div class="nav">   
-        
+    <div class="nav">
         <img src="logo.png" alt="Company Logo">
-        
+    
         <nav>
-            <button>Home</button>
-            <button>Sign In</button>
-            <button>Sign Up</button>
-            <button>Journey Price</button>
+            <button type="button"><span></span> <a href="home_page.html">Home</a> </button>
+            <button type="button"><span></span> <a href="profile.html">Profile</a> </button>
+            <button type="button"><span></span> <a href="sign-in.html">Sign In</a></button>
+            <button type="button"><span></span> <a href="sign-up.html">Sign Up</a></button>
+            <button type="button"><span></span> <a href="Journy_pricing.html">Journey Price</a></button>
         </nav>
+    </div>
+    <form >
+        <h2>Sign Up</h2>
+        <div>
+            <label><p>Username</p></label>
+            <input type="text" placeholder="Enter your username" required>
         </div>
-    <br>
-    <center>
-        <form>
-            <h2>Sign Up</h2>
-
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" required><br>
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" required><br>
-
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" action="/action_page.php" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" required><br>
-
-            <label for="confirmPassword">Confirm Password:</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" required><br>
-
-            <input type="submit" value="Sign Up">
-        </form>
-    </center>
+        <div>
+            <label><p>Email</p></label>
+            <input type="email" placeholder="Enter your E-mail" required>
+        </div>
+        <div>
+            <label><p>Password</p></label>
+            <input type="password" placeholder="Enter your password" required>
+        </div>
+        <div>
+            <label><p>Repassword</p></label>
+            <input type="password" placeholder="Repassword" required>
+        </div>
+        <!-- <div>
+            <label><p>Gender </p></label>
+            <input type="text" placeholder="Enter your Gender " required>
+        </div>
+        <div>
+            <label><p>Country  </p></label>
+            <input type="text" placeholder="Enter your Country  " required>
+        </div>
+        <div>
+            <label><p>Number  </p></label>
+            <input type="number" placeholder="Enter your Number  " required>
+        </div>
+        <div>
+            <label><p>Date Of Birth </p></label>
+            <input type="date" placeholder="Enter your Date Of Birth " required>
+        </div>
+        <div>
+            <label><p>ID  </p></label>
+            <input type="number" placeholder="Enter your ID  " required>
+        </div> -->
+        <div>
+            <input type="submit" value="Submit">
+        </div>
+    </form>
 </body>
-
 </html>
