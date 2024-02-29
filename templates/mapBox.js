@@ -35,3 +35,19 @@ var directions = new MapboxDirections({
     });
 
     map.addControl(directions, 'top-left');
+    // Event listener for route updates
+    directions.on('route', function (e) {
+        if (e.route && e.route[0] && e.route[0].distance) {
+            // Extract distance information
+            const distanceInMeters = e.route[0].distance;
+
+            // Convert meters to kilometers or miles as needed
+            const distanceInKilometers = distanceInMeters / 1000;
+            const distanceInMiles = distanceInMeters / 1609.34;
+
+            // Log or send the distance to the backend
+            console.log('Distance in kilometers:', distanceInKilometers);
+            console.log('Distance in miles:', distanceInMiles);
+
+        }
+    });
