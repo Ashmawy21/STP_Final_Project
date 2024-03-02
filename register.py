@@ -22,7 +22,7 @@ class register_class :
             return render_template('sign-in.html')   #if the website sent empty password reopen the sign-in page
         
         
-        if username in data_converted :   #login using emal or username that must be already existing in the json file
+        if username in data_converted :   #login using username that must be already existing in the json file
             if data_converted[username] == hashed_pass:     #checking that the password given by user is for the correct email/username
                     session.permanent=True                           #making permanent session
                     session['uname'] = request.form['username']      #storing the username in the session  
@@ -42,7 +42,7 @@ class register_class :
         except (FileNotFoundError, json.JSONDecodeError):     
             data_converted = {}                               #if the file doesnt exist then make a dict. , it will be converted into json later on
 
-        if username in data_converted :   #checking that the user has a unique username
+        if username in data_converted :   #checking that the user has a saved username
             return "<h1>username already taken :O</h1>"
         elif password != confirmPassword:
             return 'Invalid password confirmation. Please try again !'
@@ -57,12 +57,12 @@ class register_class :
             with open('accounts.json', 'w') as f:       
                 json.dump(data_converted, f, indent = 2)   #saving the user's data in the json file
 
-            return "<h1>you have an account now, cool! ;)</h1>"
+            return render_template('sign-in.html')
         return render_template('sign-up.html')
            
 
     @staticmethod
-    def forget(username,email,new_password):
+    def forget(username,email,new_password,password_verify):
         try:
             with open('accounts.json', 'r') as f:   
                 data_converted = json.load(f)
@@ -72,29 +72,23 @@ class register_class :
         data_string = open('accounts.json').read()   
         data_converted=json.loads(data_string)   #getting data from the json file as read only
 
-    
-
-        if username in data_converted or email in data_converted:
-            if new_password != None:
-                hashed_pass=hashlib.sha256(new_password.encode()).hexdigest()   #hashing the data for user's privacy
-        else:
-            return render_template('forget-pass.html')   
-        
-        with open('accounts.json', 'r') as f:
-            file = json.load(f)
-        try:
-            for i in file:
-                if username or email in i:
+       
+        if new_password != password_verify:
+            return 'Invalid password confirmation. Please try again !'
+        elif username and email != "":
+            if username in data_converted and email in data_converted:
+                if new_password != None:
+                    hashed_pass=hashlib.sha256(new_password.encode()).hexdigest() 
                     data_converted[username] = hashlib.sha256(new_password.encode()).hexdigest()
                     data_converted[email] = hashlib.sha256(new_password.encode()).hexdigest()
-
                     with open('accounts.json', 'w') as f:       
                         json.dump(data_converted, f, indent = 2) 
-
-        except StopIteration:
-            return 'you have changed your password'
-        
+                    return render_template('sign-in.html')
+            else:
+                return render_template('sign-up.html')
+           
         return render_template('forget-pass.html')
+    
 
                 
 

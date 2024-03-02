@@ -5,20 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Journey Pricing</title>
-    <link rel="stylesheet" href="journy.css">
-    <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" /> -->
-    
-<script src='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="static/journy.css">
+<!-- <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" /> -->
 
-<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.2.0/mapbox-gl-directions.js"></script>
-<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.2.0/mapbox-gl-directions.css" type="text/css">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css' rel='stylesheet' />
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.2.0/mapbox-gl-directions.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.2.0/mapbox-gl-directions.css" type="text/css">
 
 
-<style>
+    <style>
         #map {
             height: 400px;
             width: 40%;
+        }
+
+        .additional-text {
+            color: rgb(254, 251, 251);
+            text-align: right;
+            position: fixed;
+            top: 50%; /* Center vertically */
+            right: 0;
+            padding: 20px;
+            font-size: 18px;
+            transform: translateY(-50%); /* Adjust to center vertically */
+        }
+
+        .additional-text h1 {
+            margin-bottom: 10px;
+            font-size: 36px;
         }
     </style>
 
@@ -26,38 +42,60 @@
 
 <body>
     <div class="nav">
-        <img src="logo.png" alt="Company Logo">
-    
+        <img src="static/Spin T final logo.png" alt="Company Logo">
+
         <nav>
-            <button type="button"><span></span> <a href="/">Home</a> </button>
             <button type="button"><span></span> <a href="/profile">Profile</a> </button>
             <button type="button"><span></span> <a href="sign in">Sign In</a></button>
             <button type="button"><span></span> <a href="sign up">Sign Up</a></button>
-            <button type="button"><span></span> <a href="/journy pricing">Journey Price</a></button>
+            <button type="button"><span></span> <a href="/journy_pricing">Journey Price</a></button>
         </nav>
     </div>
     <br>
     <center>
         <h2>Journey Pricing</h2>
-            <div id='map' ></div>
-            <br>
-            <br>
-            <br>
+        <div id='map' ></div>
+        <br>
+        <br>
+        <br>
         <label for="pickupPoint">Pickup Point:</label>
         <input type="text" id="pickupPoint" name="pickupPoint" required><br>
 
         <label for="landingPoint">Landing Point:</label>
         <input type="text" id="landingPoint" name="landingPoint" required><br>
 
-        <button id="pricebutton" onclick="calculatePrice()">Calculate Price</button>
+        <button type="button" id="pricebutton" onclick="calculatePrice()" >Get price</button>
+        <h3>Price: <span id="priceDisplay"></span></h3>
+        <script>
+            function calculatePrice() {
+                var distance = document.getElementById('distance').value;
+                var duration = document.getElementById('duration').value;
+                // Make an AJAX request to the Flask route
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/journy_pricing', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        document.getElementById('priceDisplay').innerText = response.price;
+                    }
+                };
+                
+                // Send data as JSON
+                xhr.send(JSON.stringify({price: price }));   
+                 console.log("Price");
+                 var priceDisplaySpan = document.getElementById("price");
+                 priceDisplaySpan.textContent = "$" + price.toFixed(2); // Format the Price as needed
 
-        <!-- <h3>Price: <span id="priceDisplay"></span></h3>
-        <button onclick="calculatePrice()">Find a driver</button> -->
+                
+            }
+        </script>
 
+
+
+        
     </center>
-
-
-<script src="mapBox.js"></script>
+    <script src="static/mapBox.js"></script>
 </body>
 
 </html>
